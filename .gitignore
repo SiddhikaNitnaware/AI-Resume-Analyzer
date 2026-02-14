@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+
+# Environment
+env/
+venv/
+.resume_ai/
+*.env
+
+# Conda
+*.conda
+
+# VS Code
+.vscode/
+
+# System files
+.DS_Store
+
+# Temporary files
+temp/

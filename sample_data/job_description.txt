@@ -1,0 +1,3 @@
+We are looking for a Python Developer with experience in Machine Learning,
+NLP, SQL, Git, and data preprocessing. Candidate should be familiar with
+scikit-learn, pandas, and model evaluation techniques.
