@@ -38,6 +38,7 @@ SKILL_DATABASE = {
         "docker", "kubernetes", "jenkins", "terraform", "ansible", "puppet", "chef",
         "ec2", "s3", "lambda", "cloudformation", "cicd", "ci/cd", "devops",
         "git", "github", "gitlab", "bitbucket", "jira", "circleci"
+        "git", "github", "gitlab", "bitbucket", "jira", "jenkins", "circleci"
     },
     "tools_frameworks": {
         "git", "docker", "kubernetes", "jupyter", "vscode", "intellij", "eclipse",

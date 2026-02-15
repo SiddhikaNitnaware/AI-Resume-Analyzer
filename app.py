@@ -4,7 +4,6 @@ from skill_matcher import (
     calculate_similarity,
     skill_gap_analysis,
     ats_check,
-    generate_improvement_tips,
     extract_skills
 )
 import tempfile
@@ -20,7 +19,7 @@ if uploaded_file is not None:
         st.error("File size must be less than 4MB")
         uploaded_file = None
         
-job_description = st.text_area("Paste Job Description Here")
+job_description = st.text_area("Paste Job Description Here", height=200)
 
 submit = st.button("Analyze Resume", type="primary")
 
@@ -33,10 +32,9 @@ if submit and uploaded_file is not None and job_description:
     resume_text = extract_text_from_pdf(resume_path)
 
     with st.spinner("Analyzing resume..."):
-        score = calculate_similarity(resume_text, job_description.lower())
-        skill_analysis = skill_gap_analysis(resume_text, job_description.lower())
-        ats_results = ats_check(resume_text, job_description.lower())
-        improvement_tips = generate_improvement_tips(resume_text, job_description, skill_analysis, ats_results)
+        score = calculate_similarity(resume_text, job_description)
+        skill_analysis = skill_gap_analysis(resume_text, job_description)
+        ats_results = ats_check(resume_text, job_description)
 
     col1, col2 = st.columns(2)
     
@@ -53,7 +51,7 @@ if submit and uploaded_file is not None and job_description:
         else:
             st.error(f"{ats_results['score']}/100 - Needs Work")
 
-    tab1, tab2, tab3, tab4 = st.tabs(["✅ Skills", "❌ Missing Skills", "🔍 ATS Check", "💡 Tips"])
+    tab1, tab2, tab3 = st.tabs(["✅ Skills", "❌ Missing Skills", "🔍 ATS Check"])
 
     with tab1:
         st.write("**Skills Found in Resume:**")
@@ -71,7 +69,7 @@ if submit and uploaded_file is not None and job_description:
                                     for s in skill_analysis["missing"]])
             st.markdown(missing_html, unsafe_allow_html=True)
         else:
-            st.write("No major skill gaps!")
+            st.success("No major skill gaps detected!")
 
     with tab3:
         st.write("**ATS Compatibility Details:**")
@@ -84,11 +82,6 @@ if submit and uploaded_file is not None and job_description:
                 st.warning(f"• {issue}")
         else:
             st.success("No major issues found!")
-
-    with tab4:
-        st.write("**Improvement Tips:**")
-        for i, tip in enumerate(improvement_tips, 1):
-            st.info(f"{i}. {tip}")
 
     st.divider()
     st.subheader("📋 Resume Analysis Summary")
