@@ -15,6 +15,11 @@ st.title("📄 AI-Powered Resume Screening System")
 st.write("Upload your resume and compare it with a job description.")
 
 uploaded_file = st.file_uploader("Upload Resume (PDF)", type=["pdf"])
+if uploaded_file is not None:
+    if uploaded_file.size > 4 * 1024 * 1024:
+        st.error("File size must be less than 4MB")
+        uploaded_file = None
+        
 job_description = st.text_area("Paste Job Description Here")
 
 submit = st.button("Analyze Resume", type="primary")
