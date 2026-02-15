@@ -67,24 +67,29 @@ ALL_SKILLS = set()
 for category in SKILL_DATABASE:
     ALL_SKILLS.update(SKILL_DATABASE[category])
 
+MIN_SKILL_LENGTH = 2
+
 def extract_skills(text):
     text_lower = text.lower()
     found_skills = set()
     
-    words = re.findall(r'\b\w+\b', text_lower)
+    words = set(re.findall(r'\b\w+\b', text_lower))
+    
     for word in words:
-        if word in ALL_SKILLS:
-            found_skills.add(word)
+        if len(word) >= MIN_SKILL_LENGTH:
+            if word in ALL_SKILLS:
+                found_skills.add(word)
     
     for skill in ALL_SKILLS:
-        if skill in text_lower:
-            found_skills.add(skill)
+        if len(skill) >= 3:
+            if f' {skill} ' in f' {text_lower} ' or f' {skill}.' in text_lower or f' {skill},' in text_lower:
+                found_skills.add(skill)
     
     doc = nlp(text_lower)
     for chunk in doc.noun_chunks:
         chunk_text = chunk.text.lower().strip()
         for skill in ALL_SKILLS:
-            if skill in chunk_text:
+            if len(skill) >= 3 and skill in chunk_text:
                 found_skills.add(skill)
     
     return list(found_skills)
