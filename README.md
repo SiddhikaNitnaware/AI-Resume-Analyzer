@@ -5,7 +5,7 @@ An intelligent web app that analyzes resumes against job descriptions to calcula
 https://siddhikanitnaware-ai-resume-analyzer-app-jammle.streamlit.app/
 
 # Tech Stack:
--Frontend: Streamlit
+-Frontend: Streamlit 
 -NLP: spaCy
 -ML: scikit-learn
 -PDF Processing: PyMuPDF
